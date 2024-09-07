@@ -1,3 +1,5 @@
+//const { console } = require("inspector");
+
 const url = new URL(location.href);
 const movieId = url.searchParams.get("id");
 const movieTitle = url.searchParams.get("title");
@@ -24,7 +26,7 @@ function returnReviews(url){
                         <div class="card" id="${review._id}">
                             <p><strong>Review: </strong>${review.review}</p>
                             <p><strong>User: </strong>${review.user}</p>
-                            <p><a href = "#" onclick="editReview('${review._id}','${review.review}, '${review.user}')">&#128221;</a>
+                            <p><a href = "#" onclick="editReview('${review._id}','${review.review}', '${review.user}')">&#128221;</a>
                             <a href = "#" onclick="deleteReview('${review._id}')">&#128465;&#65039;</a></p>
                         </div>
                     </div>
@@ -53,5 +55,24 @@ function editReview(id, review, user) {
         </p> 
     `
 }
+
+function saveReview(reviewInputId, userInputId, id){
+    const review = document.getElementById(reviewInputId).value;
+    const user = document.getElementById(userInputId).value;
+
+    fetch(APILINK + id, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"user": user, "review": review})
+    }).then(res => res.json())
+        .then(res => {
+            console.log(res);
+            location.reload(); // Reload the page after successful update
+    });
+}
+
 
 

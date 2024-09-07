@@ -41,7 +41,7 @@ export default class ReviewsDAO {
     }
 
     static async updateReview(reviewId, user, review) {
-        //console.log("rev", reviewId)
+        // console.log("rev", reviewId)
         try {
             const updateResponse = await reviews.updateOne(
                 { _id: ObjectId(reviewId)},
@@ -67,7 +67,7 @@ export default class ReviewsDAO {
     }
 
     static async getReviewsByMovieId(movieId) {
-        //console.log("mov", movieId)
+        // console.log("mov", movieId)
         try {
             // find any items return a cursor
             const cursor = await reviews.find({ 
